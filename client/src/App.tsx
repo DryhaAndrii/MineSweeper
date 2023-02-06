@@ -1,28 +1,11 @@
-import React, { useState } from 'react';
-import './App.css';
-
+import React from 'react';
+import axios from 'axios';
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div className='App'>
-      <div>
-        <a href='https://vitejs.dev'>
-          <img src='/vite.svg' className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://reactjs.org'>
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-    </div>
-  );
+  async function button() {
+    const response = await axios.get('http://localhost:7070/users');
+    console.log(response);
+  }
+  return <button onClick={button}>kek</button>;
 }
 
 export default App;

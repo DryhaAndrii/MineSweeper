@@ -1,9 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from './reducers/CounterSlice';
 import minesweeperReducer from './reducers/MinesweeperSlice';
 
 const rootReducer = combineReducers({
-  counterReducer,
   minesweeperReducer,
 });
 

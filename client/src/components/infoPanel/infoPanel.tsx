@@ -24,7 +24,7 @@ function InfoPanel() {
     <div className='infoPanelWrapper'>
       <p className='countOfMines'>
         mines left: {countOfMines - FlagsCoordinates.length}, cells opened:{OpenedCells.length},
-        cells remain:{height * width - countOfMines}
+        cells remain:{height * width - countOfMines - OpenedCells.length}
       </p>
       <button onClick={renew}>renew</button>
       <p className='timer'>{timer}</p>

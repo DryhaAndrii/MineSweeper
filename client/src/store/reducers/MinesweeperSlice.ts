@@ -2,7 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface cellsArray {
   rowIndex: number;
-  cell: number;
+  cellIndex: number;
+}
+interface cellObject {
+  rowIndex: number;
+  cellIndex: number;
+  mine: boolean;
+  id: number;
+  opened: boolean;
 }
 
 interface MinesweeperState {
@@ -10,21 +17,19 @@ interface MinesweeperState {
   height: number;
   countOfMines: number;
   timer: number;
-  MineCoordinates: cellsArray[];
-  CellsThatShouldBeChecked: cellsArray[];
   FlagsCoordinates: cellsArray[];
   lose: boolean;
   win: boolean;
   OpenedCells: cellsArray[];
+  cells: cellObject[][];
 }
 
 const initialState: MinesweeperState = {
+  cells: [],
   height: 9,
   width: 9,
   countOfMines: 9,
   timer: 0,
-  MineCoordinates: [],
-  CellsThatShouldBeChecked: [],
   FlagsCoordinates: [],
   lose: false,
   win: false,
@@ -50,12 +55,6 @@ export const minesweeperSlice = createSlice({
     renewTimer: (state) => {
       state.timer = 0;
     },
-    setMinesId: (state, action: PayloadAction<cellsArray[]>) => {
-      state.MineCoordinates = action.payload;
-    },
-    setCellsThatShouldBeChecked: (state, action: PayloadAction<cellsArray[]>) => {
-      state.CellsThatShouldBeChecked = action.payload;
-    },
     setFlagsCoordinates: (state, action: PayloadAction<cellsArray[]>) => {
       state.FlagsCoordinates = action.payload;
     },
@@ -67,6 +66,9 @@ export const minesweeperSlice = createSlice({
     },
     setOpenedCells: (state, action: PayloadAction<cellsArray[]>) => {
       state.OpenedCells = action.payload;
+    },
+    setCells: (state, action: PayloadAction<cellObject[][]>) => {
+      state.cells = action.payload;
     },
   },
 });

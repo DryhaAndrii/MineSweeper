@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useAppDispatch, useAppSelector } from './store/hooks/redux';
+import { minesweeperSlice } from './store/reducers/MinesweeperSlice';
+import Field from './components/field/field';
+import DifficultPanel from './components/difficultPanel/difficultPanel';
 function App() {
-  async function button() {
-    const response = await axios.get('http://localhost:7070/users');
-    console.log(response);
-  }
-  return <button onClick={button}>kek</button>;
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    let timerID = setInterval(() => {
+      dispatch(minesweeperSlice.actions.incTimer());
+    }, 1000);
+  }, []);
+  return (
+    <div className='minesweeper'>
+      <DifficultPanel></DifficultPanel>
+
+      <Field></Field>
+    </div>
+  );
 }
 
 export default App;

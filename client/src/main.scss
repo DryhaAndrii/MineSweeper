@@ -1,0 +1,20 @@
+body {min-height: 100vh;margin: 0px;height: 0px;}
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.minesweeper{
+  display: flex;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

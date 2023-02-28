@@ -21,7 +21,7 @@ export function createCellsArray(width: number, height: number, countOfMines: nu
       if (minesCellsIds.includes(id)) {
         mine = true;
       }
-      cells[rowIndex][cellIndex] = { cellIndex, rowIndex, id, mine, opened: false };
+      cells[rowIndex][cellIndex] = { cellIndex, rowIndex, id, mine, opened: false, minesAround: -1 };
       id++;
     }
   }

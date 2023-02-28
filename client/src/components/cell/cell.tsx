@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
-import { CellPositionsEnum, getCell } from './helpers/getCell';
+
 import FlagSvg from '../svgIcons/FlagSvg';
 import BombSvg from '../svgIcons/BombSvg';
 
@@ -12,26 +12,47 @@ interface myState {
   mine: boolean;
   opened: boolean;
   cellLeftClick: (id: number) => void;
+  minesAround: number;
+  onEmptyCell: (rowIndex: number, cellIndex: number) => void;
 }
 
-function Cell({ cellIndex, rowIndex, id, mine, opened, cellLeftClick }: myState) {
+function Cell({
+  cellIndex,
+  rowIndex,
+  id,
+  mine,
+  opened,
+  cellLeftClick,
+  minesAround,
+  onEmptyCell,
+}: myState) {
   const [className, setClassName] = useState('cell');
   const [isFlag, setIsFlag] = useState(false);
-  const [minesAround, setMinesAround] = useState(0);
+  const [mines, setMines] = useState(0);
   const dispatch = useAppDispatch();
-  const { FlagsCoordinates, OpenedCells, height, width } = useAppSelector(
-    (state) => state.minesweeperReducer,
-  );
+  const { openedCells } = useAppSelector((state) => state.minesweeperReducer);
 
   useEffect(() => {
     if (opened) {
       if (mine) {
         setClassName('mine');
-      } else {
-        setClassName('empty');
+      }
+      if (!mine) {
+        if (minesAround > 0) {
+          setMines(minesAround);
+          setClassName(`minesAround _${minesAround}`);
+        }
+        if (minesAround === 0) {
+          setClassName('empty');
+          onEmptyCell(rowIndex, cellIndex);
+        }
       }
     }
-  }, [opened]);
+    if (!opened) {
+      setClassName('cell');
+      setMines(0);
+    }
+  }, [opened, minesAround]);
 
   return (
     <div
@@ -41,7 +62,7 @@ function Cell({ cellIndex, rowIndex, id, mine, opened, cellLeftClick }: myState)
         cellLeftClick(id);
       }}
     >
-      {minesAround > 0 && minesAround}
+      {mines > 0 && mines}
       {isFlag && <FlagSvg />}
       {className === 'mine' && <BombSvg />}
     </div>

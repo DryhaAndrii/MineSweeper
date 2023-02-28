@@ -4,4 +4,5 @@ export interface cellObject {
   cellIndex: number;
   mine: boolean;
   opened: boolean;
+  minesAround: number;
 }

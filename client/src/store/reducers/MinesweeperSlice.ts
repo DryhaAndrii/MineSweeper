@@ -10,6 +10,7 @@ interface cellObject {
   mine: boolean;
   id: number;
   opened: boolean;
+  minesAround: number;
 }
 
 interface MinesweeperState {
@@ -20,7 +21,7 @@ interface MinesweeperState {
   FlagsCoordinates: cellsArray[];
   lose: boolean;
   win: boolean;
-  OpenedCells: cellsArray[];
+  openedCells: number;
   cells: cellObject[][];
 }
 
@@ -33,7 +34,7 @@ const initialState: MinesweeperState = {
   FlagsCoordinates: [],
   lose: false,
   win: false,
-  OpenedCells: [],
+  openedCells: 0,
 };
 
 export const minesweeperSlice = createSlice({
@@ -64,8 +65,8 @@ export const minesweeperSlice = createSlice({
     setLose: (state, action: PayloadAction<boolean>) => {
       state.win = action.payload;
     },
-    setOpenedCells: (state, action: PayloadAction<cellsArray[]>) => {
-      state.OpenedCells = action.payload;
+    setOpenedCells: (state, action: PayloadAction<number>) => {
+      state.openedCells = action.payload;
     },
     setCells: (state, action: PayloadAction<cellObject[][]>) => {
       state.cells = action.payload;

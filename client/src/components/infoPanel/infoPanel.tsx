@@ -4,7 +4,7 @@ import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import './infoPanel.scss';
 function InfoPanel() {
   const dispatch = useAppDispatch();
-  const { timer, countOfMines, height, width, FlagsCoordinates, OpenedCells } = useAppSelector(
+  const { timer, countOfMines, height, width, FlagsCoordinates, openedCells } = useAppSelector(
     (state) => state.minesweeperReducer,
   );
   function renew() {
@@ -23,8 +23,8 @@ function InfoPanel() {
   return (
     <div className='infoPanelWrapper'>
       <p className='countOfMines'>
-        mines left: {countOfMines - FlagsCoordinates.length}, cells opened:{OpenedCells.length},
-        cells remain:{height * width - countOfMines - OpenedCells.length}
+        mines left: {countOfMines - FlagsCoordinates.length}, cells opened:{openedCells}, cells
+        remain:{height * width - countOfMines - openedCells}
       </p>
       <button onClick={renew}>renew</button>
       <p className='timer'>{timer}</p>

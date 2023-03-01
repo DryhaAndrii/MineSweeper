@@ -5,4 +5,5 @@ export interface cellObject {
   mine: boolean;
   opened: boolean;
   minesAround: number;
+  flag: boolean;
 }

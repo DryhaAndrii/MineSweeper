@@ -8,19 +8,19 @@ function DifficultPanel() {
     dispatch(minesweeperSlice.actions.setHeight(9));
     dispatch(minesweeperSlice.actions.setWidth(9));
     dispatch(minesweeperSlice.actions.setCountOfMines(9));
-    dispatch(minesweeperSlice.actions.renewTimer());
+    dispatch(minesweeperSlice.actions.setTimer(0));
   }
   function mediumButton() {
     dispatch(minesweeperSlice.actions.setHeight(16));
     dispatch(minesweeperSlice.actions.setWidth(16));
     dispatch(minesweeperSlice.actions.setCountOfMines(40));
-    dispatch(minesweeperSlice.actions.renewTimer());
+    dispatch(minesweeperSlice.actions.setTimer(0));
   }
   function hardButton() {
     dispatch(minesweeperSlice.actions.setHeight(16));
     dispatch(minesweeperSlice.actions.setWidth(30));
     dispatch(minesweeperSlice.actions.setCountOfMines(99));
-    dispatch(minesweeperSlice.actions.renewTimer());
+    dispatch(minesweeperSlice.actions.setTimer(0));
   }
   return (
     <div className='difficultPanelWrapper'>

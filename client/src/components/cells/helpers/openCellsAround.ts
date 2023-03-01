@@ -13,7 +13,9 @@ export function openCellsAround(cells: cellObject[][], rowIndex: number, cellInd
       ),
     );
     if (cellExists) {
-      newCells[cellPosition.rowIndex][cellPosition.cellIndex].opened = true;
+      if (newCells[cellPosition.rowIndex][cellPosition.cellIndex].flag === false) {
+        newCells[cellPosition.rowIndex][cellPosition.cellIndex].opened = true;
+      }
     }
   });
   return newCells;

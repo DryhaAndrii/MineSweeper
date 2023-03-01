@@ -1,30 +1,30 @@
 .difficultPanelWrapper {
   display: flex;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   height: 50px;
   button {
     height: 35px;
     width: 60px;
-    background-color: #ababab; /* Цвет фона */
-    border: none; /* Без границ */
-    color: white; /* Цвет текста */
-    text-align: center; /* Выравнивание текста по центру */
-    text-decoration: none; /* Без подчёркивания текста */
-    cursor: pointer; /* Изменение курсора при наведении */
-    border-radius: 8px; /* Скругление углов */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Тень кнопки */
-    transition-duration: 0.1s; /* Время анимации */
+    background-color: #ababab;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition-duration: 0.1s;
     transition-property: transform, box-shadow;
     &:hover {
-      background-color: #767676; /* Изменение цвета фона при наведении */
-      transform: translateY(-2px); /* Сдвиг кнопки вверх при наведении */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Увеличение тени при наведении */
+      background-color: #767676;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     &:active {
-      transform: translateY(4px); /* Сдвиг кнопки вниз при нажатии */
-      box-shadow: none; /* Убрать тень при нажатии */
+      transform: translateY(4px);
+      box-shadow: none;
     }
   }
 }

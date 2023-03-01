@@ -1,6 +1,6 @@
 import { cellObject } from './types';
 
-export function updateArrayById(cellsArray: cellObject[][], id: number) {
+export function openCellById(cellsArray: cellObject[][], id: number) {
   const foundIndex = cellsArray.findIndex((innerArray) => innerArray.some((obj) => obj.id === id));
 
   if (foundIndex !== -1) {

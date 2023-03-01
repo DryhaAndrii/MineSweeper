@@ -15,7 +15,10 @@ export function findNotOpenedCells(cells: cellObject[][]) {
             cellPosition.cellIndex < 0
           ) {
           } else {
-            if (cells[cellPosition.rowIndex][cellPosition.cellIndex].opened === false) {
+            if (
+              cells[cellPosition.rowIndex][cellPosition.cellIndex].opened === false &&
+              cells[cellPosition.rowIndex][cellPosition.cellIndex].mine === false
+            ) {
               if (!cellsToReturn.includes(cell)) {
                 cellsToReturn.push(cell);
               }

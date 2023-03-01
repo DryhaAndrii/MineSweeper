@@ -1,21 +1,57 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import Cell from '../cell/cell';
 import { createCellsArray } from './helpers/createCellsArray';
-import { updateArrayById } from './helpers/updateArrayById';
+import { openCellById } from './helpers/openCellById';
 import { countMinesAround } from './helpers/countMinesAround';
 import { openCellsAround } from './helpers/openCellsAround';
 import { findNotOpenedCells } from './helpers/findNotOpenedCells';
+import { countOpenedCells } from './helpers/countOpenedCells';
+import { setFlagById } from './helpers/setFlagById';
+import { countFlagsAround } from './helpers/countFlagsAround';
+import { openMines } from './helpers/openMines';
+import { countFlagsCount } from './helpers/countFlagsCount';
 import './cells.scss';
 
 function Cells() {
   const dispatch = useAppDispatch();
-  const { countOfMines, height, width, cells, openedCells } = useAppSelector(
+  const { countOfMines, height, width, cells } = useAppSelector(
     (state) => state.minesweeperReducer,
   );
 
+  const cellsRef = useRef([]);
+
   useEffect(() => {
+    cellsRef.current = cells;
+  }, [cells]);
+
+  useEffect(() => {
+    // Запустили штуку которая смотрит есть ли не открытые клетки, и если они есть она их открывает
+    const intervalId = setInterval(() => {
+      const notOpenedCells = findNotOpenedCells(cellsRef.current);
+
+      if (notOpenedCells.length > 0) {
+        dispatch(minesweeperSlice.actions.setLoading(true));
+        console.log(notOpenedCells[0]);
+        const newCells = openCellsAround(
+          cellsRef.current,
+          notOpenedCells[0].rowIndex,
+          notOpenedCells[0].cellIndex,
+        );
+
+        dispatch(minesweeperSlice.actions.setCells(newCells));
+      } else if (notOpenedCells.length === 0) {
+        dispatch(minesweeperSlice.actions.setLoading(false));
+      }
+    }, 100);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    dispatch(minesweeperSlice.actions.setWin(false));
+    dispatch(minesweeperSlice.actions.setLose(false));
     const cells = createCellsArray(width, height, countOfMines);
 
     cells.forEach((row) => {
@@ -28,36 +64,39 @@ function Cells() {
     dispatch(minesweeperSlice.actions.setCells(cells));
   }, [countOfMines]);
 
+  // Юзэфект ждет когда поменяется поле и считает количество открытых клеток и флагов
+  useEffect(() => {
+    dispatch(minesweeperSlice.actions.setOpenedCells(countOpenedCells(cells)));
+    dispatch(minesweeperSlice.actions.setFlagsCount(countFlagsCount(cells)));
+  }, [cells]);
+
   function cellLeftClick(id: number) {
-    const newCells = updateArrayById(cells, id);
+    const newCells = openCellById(cells, id);
+
+    dispatch(minesweeperSlice.actions.setCells(newCells));
+  }
+  function cellRightClick(id: number) {
+    const newCells = setFlagById(cells, id);
 
     dispatch(minesweeperSlice.actions.setCells(newCells));
   }
 
-  function onEmptyCell(rowIndex: number, cellIndex: number) {
-    const newCells = openCellsAround(cells, rowIndex, cellIndex);
-    dispatch(minesweeperSlice.actions.setCells(newCells));
-  }
-
-  function findAllNotOpenedAndOpen() {
-    const notOpenedCells = findNotOpenedCells(cells);
-    console.log(notOpenedCells);
-    if (notOpenedCells.length > 0) {
-      notOpenedCells.forEach((cell) => {
-        onEmptyCell(cell.rowIndex, cell.cellIndex);
-      });
+  function cellDigitClick(minesAround: number, cellIndex: number, rowIndex: number) {
+    const flagsAround = countFlagsAround(cells, rowIndex, cellIndex);
+    if (flagsAround === minesAround) {
+      const newCells = openCellsAround(cells, rowIndex, cellIndex);
+      dispatch(minesweeperSlice.actions.setCells(newCells));
     }
+  }
+  function onMineOpen() {
+    console.log('lose');
+    const newCells = openMines(cells);
+    dispatch(minesweeperSlice.actions.setCells(newCells));
+    dispatch(minesweeperSlice.actions.setLose(true));
   }
 
   return (
     <div className='cellsWrapper'>
-      <button
-        onClick={() => {
-          findAllNotOpenedAndOpen();
-        }}
-      >
-        open cells
-      </button>
       {cells.map((row, index) => {
         return (
           <div className='row' key={index}>
@@ -71,8 +110,11 @@ function Cells() {
                   mine={cell.mine}
                   opened={cell.opened}
                   cellLeftClick={cellLeftClick}
+                  cellRightClick={cellRightClick}
                   minesAround={cell.minesAround}
-                  onEmptyCell={onEmptyCell}
+                  flag={cell.flag}
+                  cellDigitClick={cellDigitClick}
+                  onMineOpen={onMineOpen}
                 ></Cell>
               );
             })}

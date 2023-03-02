@@ -33,14 +33,14 @@ function Cell({
   onMineOpen,
 }: myState) {
   const [className, setClassName] = useState('cell');
-  const [isFlag, setIsFlag] = useState(false);
   const [mines, setMines] = useState(0);
   const dispatch = useAppDispatch();
-  const { loading } = useAppSelector((state) => state.minesweeperReducer);
+  const { loading, win, lose } = useAppSelector((state) => state.minesweeperReducer);
 
   useEffect(() => {
     if (opened) {
       if (mine) {
+        dispatch(minesweeperSlice.actions.setLose(true));
         setClassName('mine');
         onMineOpen();
       }
@@ -68,20 +68,26 @@ function Cell({
       className={`${className}`}
       draggable={false}
       onClick={() => {
-        if (!loading) {
-          if (!flag) {
-            cellLeftClick(id);
-          }
-          if (minesAround > 0) {
-            cellDigitClick(minesAround, cellIndex, rowIndex);
+        if (win === false && lose === false) {
+          if (!loading) {
+            if (!flag) {
+              cellLeftClick(id);
+            }
+            if (minesAround > 0) {
+              if (opened) {
+                cellDigitClick(minesAround, cellIndex, rowIndex);
+              }
+            }
           }
         }
       }}
       onContextMenu={(e) => {
         e.preventDefault();
-        if (!loading) {
-          if (opened === false) {
-            cellRightClick(id);
+        if (win === false && lose === false) {
+          if (!loading) {
+            if (opened === false) {
+              cellRightClick(id);
+            }
           }
         }
       }}

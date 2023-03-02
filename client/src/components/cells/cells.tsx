@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef} from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import Cell from '../cell/cell';
@@ -33,7 +33,6 @@ function Cells() {
 
       if (notOpenedCells.length > 0) {
         dispatch(minesweeperSlice.actions.setLoading(true));
-        console.log(notOpenedCells[0]);
         const newCells = openCellsAround(
           cellsRef.current,
           notOpenedCells[0].rowIndex,
@@ -89,7 +88,6 @@ function Cells() {
     }
   }
   function onMineOpen() {
-    console.log('lose');
     const newCells = openMines(cells);
     dispatch(minesweeperSlice.actions.setCells(newCells));
     dispatch(minesweeperSlice.actions.setLose(true));

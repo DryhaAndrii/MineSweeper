@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface cellsArray {
-  rowIndex: number;
-  cellIndex: number;
-}
 interface cellObject {
   rowIndex: number;
   cellIndex: number;
@@ -19,13 +15,13 @@ interface MinesweeperState {
   height: number;
   countOfMines: number;
   timer: number;
-  FlagsCoordinates: cellsArray[];
   lose: boolean;
   win: boolean;
   openedCells: number;
   flagsCount: number;
   cells: cellObject[][];
   loading: boolean;
+  showRecords: boolean;
 }
 
 const initialState: MinesweeperState = {
@@ -34,12 +30,12 @@ const initialState: MinesweeperState = {
   width: 9,
   countOfMines: 9,
   timer: 0,
-  FlagsCoordinates: [],
   lose: false,
   win: false,
   openedCells: 0,
   flagsCount: 0,
   loading: false,
+  showRecords: false,
 };
 
 export const minesweeperSlice = createSlice({
@@ -58,9 +54,6 @@ export const minesweeperSlice = createSlice({
     setTimer: (state, action: PayloadAction<number>) => {
       state.timer = action.payload;
     },
-    setFlagsCoordinates: (state, action: PayloadAction<cellsArray[]>) => {
-      state.FlagsCoordinates = action.payload;
-    },
     setWin: (state, action: PayloadAction<boolean>) => {
       state.win = action.payload;
     },
@@ -78,6 +71,9 @@ export const minesweeperSlice = createSlice({
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+    },
+    setShowRecords: (state, action: PayloadAction<boolean>) => {
+      state.showRecords = action.payload;
     },
   },
 });

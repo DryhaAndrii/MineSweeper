@@ -4,9 +4,7 @@ import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import './losePanel.scss';
 function LosePanel() {
   const dispatch = useAppDispatch();
-  const { timer, countOfMines, height, width, FlagsCoordinates, openedCells } = useAppSelector(
-    (state) => state.minesweeperReducer,
-  );
+  const { countOfMines, height, width } = useAppSelector((state) => state.minesweeperReducer);
   function renew() {
     const oldMines = countOfMines;
     const oldHeight = height;

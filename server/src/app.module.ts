@@ -12,11 +12,13 @@ import { RecordsModule } from './records/records.module';
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
+      uri: process.env.DB_URL, // используем строку подключения из .env
+      dialectOptions: {
+        ssl:
+          process.env.NODE_ENV === 'production'
+            ? { require: true, rejectUnauthorized: false }
+            : false, // если в проде используем SSL
+      },
       models: [Record],
       autoLoadModels: true,
     }),

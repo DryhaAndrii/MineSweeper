@@ -1,4 +1,4 @@
-import React, { useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import Cell from '../cell/cell';
@@ -24,6 +24,7 @@ function Cells() {
 
   useEffect(() => {
     cellsRef.current = cells;
+    console.log('ENVS:', import.meta.env.VITE_APP_API_URL);
   }, [cells]);
 
   useEffect(() => {

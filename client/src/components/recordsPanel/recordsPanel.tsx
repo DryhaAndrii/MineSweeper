@@ -22,7 +22,7 @@ function RecordsPanel() {
 
   async function getRecords() {
     try {
-      const response: any = await axios.get('http://localhost:7070/records');
+      const response: any = await axios.get(`${import.meta.env.VITE_APP_API_URL}/records`);
       const sortedRecords = response.data;
       sortedRecords.sort((a:record, b:record) => {
         const timeA = parseInt(a.time);

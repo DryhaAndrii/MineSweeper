@@ -32,8 +32,8 @@ function WinPanel() {
         setShowMessage(true);
         return;
       }
-
-      const response = await axios.post('http://localhost:7070/records', {
+      
+      const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/records`, {
         nickName: nickName,
         time: `${winTime}`,
         difficult: difficult,

@@ -9,7 +9,7 @@ function InfoPanel() {
   );
 
   const [count, setCount] = useState(1);
-  const intervalRef = useRef();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Запускаем таймер
   useEffect(() => {
@@ -19,14 +19,18 @@ function InfoPanel() {
     }, 1000);
 
     return () => {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, [count]);
 
   // Обнуляем таймер
   useEffect(() => {
     if (timer === 0) {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       setCount(1);
 
       intervalRef.current = setInterval(() => {

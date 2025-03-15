@@ -4,9 +4,18 @@ import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import axios from 'axios';
 import './winPanel.scss';
 import Message from './message';
+
+interface ImportMetaEnv {
+  VITE_APP_API_URL: string;
+}
+
+interface ImportMetaWithEnv extends ImportMeta {
+  env: ImportMetaEnv;
+}
+
 function WinPanel() {
   const dispatch = useAppDispatch();
-  const { timer, countOfMines, height, width, FlagsCoordinates, openedCells } = useAppSelector(
+  const { timer, countOfMines, height, width } = useAppSelector(
     (state) => state.minesweeperReducer,
   );
   const [winTime, setWinTime] = useState(0);
@@ -28,16 +37,19 @@ function WinPanel() {
 
   async function saveRecord() {
     try {
-      if (!/^[a-zA-Z0-9]+$/.test(nickName) || nickName.length > 20 || nickName.length<2) {
+      if (!/^[a-zA-Z0-9]+$/.test(nickName) || nickName.length > 20 || nickName.length < 2) {
         setShowMessage(true);
         return;
       }
-      
-      const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/records`, {
-        nickName: nickName,
-        time: `${winTime}`,
-        difficult: difficult,
-      });
+
+      const response = await axios.post(
+        `${(import.meta as ImportMetaWithEnv).env.VITE_APP_API_URL}/records`,
+        {
+          nickName: nickName,
+          time: `${winTime}`,
+          difficult: difficult,
+        },
+      );
       console.log(response.data);
       dispatch(minesweeperSlice.actions.setWin(false));
       dispatch(minesweeperSlice.actions.setShowRecords(true));
@@ -77,7 +89,14 @@ function WinPanel() {
       ></input>
       <button onClick={saveRecord}>Save result</button>
       <button onClick={renew}>Restart</button>
-      {showMessage && <Message message={'Nickname can only contain Latin letters and numbers, their number cannot be less than 2 and more than 20'} hideMessage={hideMessage} />}
+      {showMessage && (
+        <Message
+          message={
+            'Nickname can only contain Latin letters and numbers, their number cannot be less than 2 and more than 20'
+          }
+          hideMessage={hideMessage}
+        />
+      )}
     </div>
   );
 }

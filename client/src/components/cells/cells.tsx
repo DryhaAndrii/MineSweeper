@@ -13,6 +13,8 @@ import { countFlagsAround } from './helpers/countFlagsAround';
 import { openMines } from './helpers/openMines';
 import { countFlagsCount } from './helpers/countFlagsCount';
 import './cells.scss';
+import { cellObject } from './helpers/types';
+
 
 function Cells() {
   const dispatch = useAppDispatch();
@@ -20,11 +22,10 @@ function Cells() {
     (state) => state.minesweeperReducer,
   );
 
-  const cellsRef = useRef([]);
+  const cellsRef = useRef<cellObject[][]>([]);
 
   useEffect(() => {
     cellsRef.current = cells;
-    console.log('ENVS:', import.meta.env.VITE_APP_API_URL);
   }, [cells]);
 
   useEffect(() => {

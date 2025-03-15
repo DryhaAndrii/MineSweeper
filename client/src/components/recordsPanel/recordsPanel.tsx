@@ -11,6 +11,14 @@ interface record {
   createdAt: string;
 }
 
+interface ImportMetaEnv {
+  VITE_APP_API_URL: string;
+}
+
+interface ImportMetaWithEnv extends ImportMeta {
+  env: ImportMetaEnv;
+}
+
 function RecordsPanel() {
   const dispatch = useAppDispatch();
 
@@ -22,7 +30,7 @@ function RecordsPanel() {
 
   async function getRecords() {
     try {
-      const response: any = await axios.get(`${import.meta.env.VITE_APP_API_URL}/records`);
+      const response: any = await axios.get(`${(import.meta as ImportMetaWithEnv).env.VITE_APP_API_URL}/records`);
       const sortedRecords = response.data;
       sortedRecords.sort((a:record, b:record) => {
         const timeA = parseInt(a.time);

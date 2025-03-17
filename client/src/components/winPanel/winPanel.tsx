@@ -21,6 +21,8 @@ function WinPanel() {
   const [winTime, setWinTime] = useState(0);
   const [nickName, setNickName] = useState('');
   const [difficult, setDifficult] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   useEffect(() => {
     setWinTime(timer);
@@ -38,10 +40,13 @@ function WinPanel() {
   async function saveRecord() {
     try {
       if (!/^[a-zA-Z0-9]+$/.test(nickName) || nickName.length > 20 || nickName.length < 2) {
+        setMessage(
+          'Nickname can only contain Latin letters and numbers, their number cannot be less than 2 and more than 20',
+        );
         setShowMessage(true);
         return;
       }
-
+      setLoading(true);
       const response = await axios.post(
         `${(import.meta as ImportMetaWithEnv).env.VITE_APP_API_URL}/records`,
         {
@@ -51,10 +56,14 @@ function WinPanel() {
         },
       );
       console.log(response.data);
+      setLoading(false);
       dispatch(minesweeperSlice.actions.setWin(false));
       dispatch(minesweeperSlice.actions.setShowRecords(true));
     } catch (error) {
-      console.error(error);
+      setMessage('Some error occurred while saving the record, you can try again or restart game to play without saving record');
+      setShowMessage(true);
+      console.error('Error saving record: ', error);
+      setLoading(false);
     }
   }
 
@@ -75,6 +84,7 @@ function WinPanel() {
 
   function hideMessage() {
     setShowMessage(false);
+    setMessage('');
   }
   return (
     <div className='winPanel'>
@@ -87,16 +97,11 @@ function WinPanel() {
           setNickName(e.target.value);
         }}
       ></input>
-      <button onClick={saveRecord}>Save result</button>
+      <button onClick={saveRecord} disabled={loading}>
+        {loading ? 'Loading...' : 'Save record'}
+      </button>
       <button onClick={renew}>Restart</button>
-      {showMessage && (
-        <Message
-          message={
-            'Nickname can only contain Latin letters and numbers, their number cannot be less than 2 and more than 20'
-          }
-          hideMessage={hideMessage}
-        />
-      )}
+      {showMessage && <Message message={message} hideMessage={hideMessage} />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAppDispatch} from '../../store/hooks/redux';
+import { useAppDispatch } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import './recordsPanel.scss';
 import Record from './record';
@@ -24,28 +24,44 @@ function RecordsPanel() {
 
   const [difficult, setDifficult] = useState('easy');
   const [records, setRecords] = useState<Array<record>>([]);
+  const [message, setMessage] = useState('');
   useEffect(() => {
     getRecords();
   }, []);
 
   async function getRecords() {
     try {
-      const response: any = await axios.get(`${(import.meta as ImportMetaWithEnv).env.VITE_APP_API_URL}/records`);
+      const response: any = await axios.get(
+        `${(import.meta as ImportMetaWithEnv).env.VITE_APP_API_URL}/records`,
+      );
       const sortedRecords = response.data;
-      sortedRecords.sort((a:record, b:record) => {
+      sortedRecords.sort((a: record, b: record) => {
         const timeA = parseInt(a.time);
         const timeB = parseInt(b.time);
         return timeA - timeB;
       });
       setRecords(sortedRecords);
-
     } catch (error) {
+      setMessage('Error while getting records');
       console.error(error);
     }
   }
 
   function hideButtonHandler() {
     dispatch(minesweeperSlice.actions.setShowRecords(false));
+  }
+  if (records.length === 0) {
+    return (
+      <div
+        className='recordsPanel'
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        {message === '' ? 'Loading...' : message}
+        <button className='hideButton' onClick={hideButtonHandler}>
+          ✖
+        </button>
+      </div>
+    );
   }
   return (
     <div className='recordsPanel'>

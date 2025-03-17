@@ -8,6 +8,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  padding: 10px;
 
   text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
     rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
@@ -53,6 +54,8 @@
     }
   }
   .recordsList {
+    overflow-y: scroll;
+    height: 300px;
     .types,
     .record {
       display: flex;

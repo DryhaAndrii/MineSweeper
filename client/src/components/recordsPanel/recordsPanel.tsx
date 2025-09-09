@@ -23,7 +23,7 @@ function RecordsPanel() {
   const dispatch = useAppDispatch();
 
   const [difficult, setDifficult] = useState('easy');
-  const [records, setRecords] = useState<Array<record>>([]);
+  const [records, setRecords] = useState<Array<record> | null>([]);
   const [message, setMessage] = useState('');
   useEffect(() => {
     getRecords();
@@ -42,6 +42,7 @@ function RecordsPanel() {
       });
       setRecords(sortedRecords);
     } catch (error) {
+      setRecords(null);
       setMessage('Error while getting records');
       console.error(error);
     }
@@ -50,13 +51,25 @@ function RecordsPanel() {
   function hideButtonHandler() {
     dispatch(minesweeperSlice.actions.setShowRecords(false));
   }
+  if (!records)
+    return (
+      <div
+        className='recordsPanel'
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        Unable to load records
+        <button className='hideButton' onClick={hideButtonHandler}>
+          ✖
+        </button>
+      </div>
+    );
   if (records.length === 0) {
     return (
       <div
         className='recordsPanel'
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        {message === '' ? 'Loading...' : message}
+        No records
         <button className='hideButton' onClick={hideButtonHandler}>
           ✖
         </button>

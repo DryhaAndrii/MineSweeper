@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 
+import { AppController } from './app.controller';
 import { Record } from './records/records.model';
 import { RecordsModule } from './records/records.module';
 
@@ -18,5 +19,6 @@ import { RecordsModule } from './records/records.module';
     }),
     RecordsModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

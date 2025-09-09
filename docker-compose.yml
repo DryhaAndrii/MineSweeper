@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    container_name: minesweeper-postgres
+    environment:
+      POSTGRES_DB: mineSweeper
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d mineSweeper']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - minesweeper-network
+
+  # NestJS бэкенд
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: minesweeper-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      CLIENT: http://localhost:5173
+      DB_URL: postgres://postgres:password@postgres:5432/mineSweeper
+    ports:
+      - '3002:3002'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - minesweeper-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  minesweeper-network:
+    driver: bridge

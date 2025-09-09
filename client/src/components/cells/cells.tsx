@@ -3,10 +3,9 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import Cell from '../cell/cell';
 import { createCellsArray } from './helpers/createCellsArray';
-import { openCellById } from './helpers/openCellById';
+import { openCellByIdRecursively } from './helpers/openCellsRecursively';
 import { countMinesAround } from './helpers/countMinesAround';
 import { openCellsAround } from './helpers/openCellsAround';
-import { findNotOpenedCells } from './helpers/findNotOpenedCells';
 import { countOpenedCells } from './helpers/countOpenedCells';
 import { setFlagById } from './helpers/setFlagById';
 import { countFlagsAround } from './helpers/countFlagsAround';
@@ -14,7 +13,6 @@ import { openMines } from './helpers/openMines';
 import { countFlagsCount } from './helpers/countFlagsCount';
 import './cells.scss';
 import { cellObject } from './helpers/types';
-
 
 function Cells() {
   const dispatch = useAppDispatch();
@@ -27,28 +25,6 @@ function Cells() {
   useEffect(() => {
     cellsRef.current = cells;
   }, [cells]);
-
-  useEffect(() => {
-    // Запустили штуку которая смотрит есть ли не открытые клетки, и если они есть она их открывает
-    const intervalId = setInterval(() => {
-      const notOpenedCells = findNotOpenedCells(cellsRef.current);
-
-      if (notOpenedCells.length > 0) {
-        dispatch(minesweeperSlice.actions.setLoading(true));
-        const newCells = openCellsAround(
-          cellsRef.current,
-          notOpenedCells[0].rowIndex,
-          notOpenedCells[0].cellIndex,
-        );
-
-        dispatch(minesweeperSlice.actions.setCells(newCells));
-      } else if (notOpenedCells.length === 0) {
-        dispatch(minesweeperSlice.actions.setLoading(false));
-      }
-    }, 100);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   useEffect(() => {
     dispatch(minesweeperSlice.actions.setWin(false));
@@ -72,7 +48,7 @@ function Cells() {
   }, [cells]);
 
   function cellLeftClick(id: number) {
-    const newCells = openCellById(cells, id);
+    const newCells = openCellByIdRecursively(cells, id);
 
     dispatch(minesweeperSlice.actions.setCells(newCells));
   }

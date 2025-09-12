@@ -1,30 +1,30 @@
 # MineSweeper Docker Setup
 
-Этот проект настроен для запуска в Docker контейнерах.
+This project is configured to run in Docker containers.
 
-## Структура
+## Structure
 
-- `server/` - NestJS бэкенд
-- `client/` - React фронтенд (не в Docker)
-- `docker-compose.yml` - конфигурация Docker Compose
-- `docker.env` - переменные окружения для Docker
+- `server/` - NestJS backend
+- `client/` - React frontend (not in Docker)
+- `docker-compose.yml` - Docker Compose configuration
+- `docker.env` - Environment variables for Docker
 
-## Запуск
+## Running
 
-### 1. Запуск бэкенда и базы данных в Docker
+### 1. Start backend and database in Docker
 
 ```bash
-# Запуск всех сервисов
+# Start all services
 docker-compose up -d
 
-# Просмотр логов
+# View logs
 docker-compose logs -f
 
-# Остановка сервисов
+# Stop services
 docker-compose down
 ```
 
-### 2. Запуск фронтенда (локально)
+### 2. Start frontend (locally)
 
 ```bash
 cd client
@@ -32,42 +32,42 @@ npm install
 npm run dev
 ```
 
-## Порты
+## Ports
 
-- Бэкенд: http://localhost:3002
-- PostgreSQL: localhost:5433 (внешний порт)
-- Фронтенд: http://localhost:5173
+- Backend: http://localhost:3002
+- PostgreSQL: localhost:5433 (external port)
+- Frontend: http://localhost:5173
 
-## Переменные окружения
+## Environment Variables
 
-Основные переменные находятся в файле `docker.env`:
+Main variables are in `docker.env` file:
 
 - `NODE_ENV=production`
 - `PORT=3002`
 - `CLIENT=http://localhost:5173`
 - `DB_URL=postgres://postgres:password@postgres:5432/mineSweeper`
 
-## База данных
+## Database
 
-PostgreSQL автоматически создается при первом запуске с:
+PostgreSQL is automatically created on first run with:
 
-- База данных: `mineSweeper`
-- Пользователь: `postgres`
-- Пароль: `password`
+- Database: `mineSweeper`
+- User: `postgres`
+- Password: `password`
 
-## Полезные команды
+## Useful Commands
 
 ```bash
-# Пересборка контейнеров
+# Rebuild containers
 docker-compose up --build
 
-# Просмотр статуса контейнеров
+# View container status
 docker-compose ps
 
-# Подключение к базе данных
+# Connect to database
 docker-compose exec postgres psql -U postgres -d mineSweeper
 
-# Просмотр логов конкретного сервиса
+# View logs for specific service
 docker-compose logs backend
 docker-compose logs postgres
 ```

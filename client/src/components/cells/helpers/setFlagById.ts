@@ -27,7 +27,7 @@ export function setFlagById(cellsArray: cellObject[][], id: number) {
     });
     return updatedArray;
   } else {
-    // этот элс нужен чтобы тайпскрипт не ругался
+    // This else is needed so TypeScript doesn't complain
     return cellsArray;
   }
 }

@@ -11,7 +11,7 @@ function InfoPanel() {
   const [count, setCount] = useState(1);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Запускаем таймер
+  // Start the timer
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCount((prevCount) => prevCount + 1);
@@ -25,7 +25,7 @@ function InfoPanel() {
     };
   }, [count]);
 
-  // Обнуляем таймер
+  // Reset the timer
   useEffect(() => {
     if (timer === 0) {
       if (intervalRef.current) {
@@ -40,7 +40,7 @@ function InfoPanel() {
     }
   }, [timer]);
 
-  // Юзэфект который проверяет не победили ли мы
+  // useEffect that checks if we won
   useEffect(() => {
     if (height * width - countOfMines - openedCells === 0) {
       dispatch(minesweeperSlice.actions.setWin(true));

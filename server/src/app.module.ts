@@ -13,7 +13,7 @@ import { RecordsModule } from './records/records.module';
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      uri: process.env.DB_URL, // используем строку подключения из .env
+      uri: process.env.DB_URL, // use connection string from .env
       models: [Record],
       autoLoadModels: true,
     }),

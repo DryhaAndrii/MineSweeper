@@ -41,7 +41,7 @@ function Cells() {
     dispatch(minesweeperSlice.actions.setCells(cells));
   }, [countOfMines]);
 
-  // Юзэфект ждет когда поменяется поле и считает количество открытых клеток и флагов
+  // useEffect waits for field changes and counts opened cells and flags
   useEffect(() => {
     dispatch(minesweeperSlice.actions.setOpenedCells(countOpenedCells(cells)));
     dispatch(minesweeperSlice.actions.setFlagsCount(countFlagsCount(cells)));

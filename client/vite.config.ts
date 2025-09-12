@@ -6,6 +6,6 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   plugins: [react(), svgr()],
   build: {
-    outDir: 'build', // Это указывает Vite использовать папку build для вывода
+    outDir: 'build', // This tells Vite to use the build folder for output
   },
 });

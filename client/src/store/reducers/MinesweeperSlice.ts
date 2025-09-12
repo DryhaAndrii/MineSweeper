@@ -25,7 +25,7 @@ interface MinesweeperState {
   uiVersion: 'old' | 'new';
 }
 
-// Получаем версию UI из localStorage или используем 'new' по умолчанию
+// Get UI version from localStorage or use 'new' as default
 const getInitialUIVersion = (): 'old' | 'new' => {
   const saved = localStorage.getItem('minesweeper-ui-version');
   return saved === 'old' || saved === 'new' ? saved : 'new';

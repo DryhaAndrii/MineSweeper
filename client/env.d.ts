@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
   VITE_API_URL: string;
-  // добавьте другие переменные окружения, которые вам нужны
+  // add other environment variables you need
 }
 
 interface ImportMeta {

@@ -3,18 +3,18 @@ import { CellPositionsEnum, getCell } from './getCell';
 import { openCellsRecursively } from './openCellsRecursively';
 
 /**
- * Открывает все соседние клетки вокруг указанной позиции
- * Используется когда кликаем по клетке с цифрой и вокруг неё достаточно флагов
+ * Opens all neighboring cells around the specified position
+ * Used when clicking on a cell with a number and there are enough flags around it
  */
 export function openCellsAround(cells: cellObject[][], rowIndex: number, cellIndex: number) {
   const newCells = JSON.parse(JSON.stringify(cells));
   const visited = new Set<string>();
 
-  // Проходим по всем соседним позициям
+  // Iterate through all neighboring positions
   Object.values(CellPositionsEnum).forEach((position) => {
     const neighborPos = getCell(position, cellIndex, rowIndex);
 
-    // Проверяем, что соседняя клетка находится в пределах поля
+    // Check that the neighboring cell is within the field boundaries
     if (
       neighborPos.rowIndex >= 0 &&
       neighborPos.rowIndex < newCells.length &&
@@ -23,9 +23,9 @@ export function openCellsAround(cells: cellObject[][], rowIndex: number, cellInd
     ) {
       const neighborCell = newCells[neighborPos.rowIndex][neighborPos.cellIndex];
 
-      // Открываем только клетки без флагов
+      // Open only cells without flags
       if (!neighborCell.flag && !neighborCell.opened) {
-        // Если соседняя клетка пустая, используем рекурсивное открывание
+        // If the neighboring cell is empty, use recursive opening
         if (neighborCell.minesAround === 0 && !neighborCell.mine) {
           const result = openCellsRecursively(
             newCells,
@@ -35,7 +35,7 @@ export function openCellsAround(cells: cellObject[][], rowIndex: number, cellInd
           );
           Object.assign(newCells, result);
         } else {
-          // Просто открываем клетку с цифрой или миной
+          // Simply open the cell with a number or mine
           newCells[neighborPos.rowIndex][neighborPos.cellIndex].opened = true;
         }
       }

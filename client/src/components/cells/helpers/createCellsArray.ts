@@ -3,7 +3,7 @@ import { cellObject } from './types';
 export function createCellsArray(width: number, height: number, countOfMines: number) {
   const cells: cellObject[][] = [];
 
-  // Создали массив с айдишниками мин
+  // Create array with mine IDs
   const minesCellsIds: number[] = [];
   while (minesCellsIds.length < countOfMines) {
     const random = Math.floor(Math.random() * width * height);

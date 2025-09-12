@@ -22,7 +22,14 @@ interface MinesweeperState {
   cells: cellObject[][];
   loading: boolean;
   showRecords: boolean;
+  uiVersion: 'old' | 'new';
 }
+
+// Получаем версию UI из localStorage или используем 'new' по умолчанию
+const getInitialUIVersion = (): 'old' | 'new' => {
+  const saved = localStorage.getItem('minesweeper-ui-version');
+  return saved === 'old' || saved === 'new' ? saved : 'new';
+};
 
 const initialState: MinesweeperState = {
   cells: [],
@@ -36,6 +43,7 @@ const initialState: MinesweeperState = {
   flagsCount: 0,
   loading: false,
   showRecords: false,
+  uiVersion: getInitialUIVersion(),
 };
 
 export const minesweeperSlice = createSlice({
@@ -74,6 +82,10 @@ export const minesweeperSlice = createSlice({
     },
     setShowRecords: (state, action: PayloadAction<boolean>) => {
       state.showRecords = action.payload;
+    },
+    setUIVersion: (state, action: PayloadAction<'old' | 'new'>) => {
+      state.uiVersion = action.payload;
+      localStorage.setItem('minesweeper-ui-version', action.payload);
     },
   },
 });

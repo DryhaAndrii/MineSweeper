@@ -64,9 +64,15 @@ function InfoPanel() {
 
   return (
     <div className='infoPanelWrapper'>
-      <p className='countOfMines'>mines left: {countOfMines - flagsCount}</p>
-      <button onClick={renew}>restart</button>
-      <p className='timer'>timer: {timer}</p>
+      <div className='info-item'>
+        <span className='label'>Mines Left</span>
+        <span className='value'>{countOfMines - flagsCount}</span>
+      </div>
+      <button onClick={renew}>Restart Game</button>
+      <div className='info-item'>
+        <span className='label'>Time</span>
+        <span className='value'>{timer}s</span>
+      </div>
     </div>
   );
 }

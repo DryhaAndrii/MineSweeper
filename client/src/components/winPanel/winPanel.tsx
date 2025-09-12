@@ -60,7 +60,9 @@ function WinPanel() {
       dispatch(minesweeperSlice.actions.setWin(false));
       dispatch(minesweeperSlice.actions.setShowRecords(true));
     } catch (error) {
-      setMessage('Some error occurred while saving the record, you can try again or restart game to play without saving record');
+      setMessage(
+        'Some error occurred while saving the record, you can try again or restart game to play without saving record',
+      );
       setShowMessage(true);
       console.error('Error saving record: ', error);
       setLoading(false);
@@ -88,20 +90,27 @@ function WinPanel() {
   }
   return (
     <div className='winPanel'>
-      <p>You win!!!</p>
-      <p>Time:{winTime} seconds</p>
-      <input
-        type='text'
-        placeholder='Your name...'
-        onChange={(e) => {
-          setNickName(e.target.value);
-        }}
-      ></input>
-      <button onClick={saveRecord} disabled={loading}>
-        {loading ? 'Loading...' : 'Save record'}
-      </button>
-      <button onClick={renew}>Restart</button>
-      {showMessage && <Message message={message} hideMessage={hideMessage} />}
+      <div className='modal-content'>
+        <div className='win-icon'>🎉</div>
+        <h2 className='win-title'>Congratulations!</h2>
+        <p className='win-subtitle'>You completed the game in {winTime} seconds</p>
+
+        <div className='score-form'>
+          <input
+            type='text'
+            placeholder='Enter your name...'
+            value={nickName}
+            onChange={(e) => setNickName(e.target.value)}
+          />
+          <button onClick={saveRecord} disabled={loading}>
+            {loading ? 'Saving...' : 'Save Record'}
+          </button>
+        </div>
+
+        <button onClick={renew}>Play Again</button>
+
+        {showMessage && <Message message={message} hideMessage={hideMessage} />}
+      </div>
     </div>
   );
 }

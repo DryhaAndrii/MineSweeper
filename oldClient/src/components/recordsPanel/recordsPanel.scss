@@ -1,0 +1,87 @@
+.recordsPanel {
+  font-size: 15px;
+  height: 400px;
+  width: 600px;
+  background-color: rgb(171 171 171 / 94%);
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+
+  text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
+    rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
+    rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
+    rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+  button {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.1s;
+    transition-property: transform, box-shadow;
+    &:hover {
+      background-color: #767676;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    &:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+  }
+  .hideButton {
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-color: rgb(74 74 74 / 92%);
+  }
+  .difficultButtons {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    button {
+      background-color: #787878;
+      width: 90px;
+      height: 30px;
+    }
+  }
+  .recordsList {
+    overflow-y: scroll;
+    height: 300px;
+    .types,
+    .record {
+      display: flex;
+      justify-content: space-evenly;
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .rank {
+        width: 30px;
+      }
+      .nick {
+        width: 90px;
+      }
+      .difficult {
+        width: 50px;
+      }
+      .time{
+        width: 30px;
+      } 
+      .created{
+        justify-content: left;
+        width: 130px;
+      }
+    }
+  }
+}

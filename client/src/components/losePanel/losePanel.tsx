@@ -21,8 +21,12 @@ function LosePanel() {
   }
   return (
     <div className='losePanel'>
-      <p>you lose</p>
-      <button onClick={renew}>restart</button>
+      <div className='modal-content'>
+        <div className='lose-icon'>💥</div>
+        <h2 className='lose-title'>Game Over!</h2>
+        <p className='lose-subtitle'>Better luck next time!</p>
+        <button onClick={renew}>Try Again</button>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { minesweeperSlice } from '../../store/reducers/MinesweeperSlice';
 import './field.scss';
 import WinPanel from '../winPanel/winPanel';
 import RecordsPanel from '../recordsPanel/recordsPanel';
+import React from 'react';
 function Field() {
   const { lose, win, showRecords } = useAppSelector((state) => state.minesweeperReducer);
   const dispatch = useAppDispatch();

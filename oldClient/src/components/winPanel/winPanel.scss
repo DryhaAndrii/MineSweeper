@@ -1,0 +1,78 @@
+.winPanel {
+  font-size: 30px;
+  height: 400px;
+  width: 300px;
+  background-color: rgb(171 171 171 / 94%);
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
+    rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
+    rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
+    rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+  button {
+    height: 50px;
+    width: 100px;
+    background-color: rgb(74 74 74 / 92%);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.1s;
+    transition-property: transform, box-shadow;
+    &:hover {
+      background-color: #767676;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    &:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+  }
+  input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7e7e7e;
+    font-size: 16px;
+    width: 200px;
+    height: 30px;
+
+    text-align: center;
+    color: white;
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      color: white;
+    }
+  }
+  .message {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 250px;
+    height: 125px;
+    position: absolute;
+    background-color: #838383;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 14px;
+
+    button {
+      height: 25px;
+      width: 60px;
+    }
+  }
+}

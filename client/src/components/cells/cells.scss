@@ -1,119 +1,168 @@
 .cellsWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 90%;
+  align-items: center;
+  gap: 2px;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+
   .row {
     display: flex;
-    width: 100%;
-    justify-content: center;
+    gap: 2px;
+
     .cell {
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: grey;
-      justify-content: center;
-      align-items: center;
-    }
-    .loading {
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: grey;
-      justify-content: center;
-      align-items: center;
-    }
-    .mine {
+      width: 32px;
+      height: 32px;
       display: flex;
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: rgb(255, 255, 255);
-      justify-content: center;
       align-items: center;
-    }
-    .flag {
-      display: flex;
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: grey;
       justify-content: center;
-      align-items: center;
-    }
-    .empty {
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: rgb(255, 255, 255);
-    }
-    .minesAround {
-      font-size: 25px;
-      width: 30px;
-      height: 30px;
-      border: 1px solid black;
-      background-color: rgb(255, 255, 255);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    ._1 {
-      color: #4d4dff;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._2 {
-      color: green;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._3 {
-      color: #ff4444;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._4 {
-      color: #00006c;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._5 {
-      color: #7e0000;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._6 {
-      color: #00b9bf;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-    }
-    ._7 {
-      color: black;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+      background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      font-weight: 600;
+      font-size: 0.875rem;
+      position: relative;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: linear-gradient(145deg, var(--border-hover), var(--bg-tertiary));
+        transform: translateY(-1px);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
     }
 
-    ._8 {
-      color: #7e0000;
-      text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px,
-        rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px,
-        rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px,
-        rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+    .loading {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      animation: pulse 1.5s ease-in-out infinite;
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .mine {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--danger-color), var(--danger-hover));
+      border: 1px solid var(--danger-hover);
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 700;
+      animation: explode 0.3s ease-out;
+
+      @keyframes explode {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    }
+
+    .flag {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--warning-color), var(--warning-hover));
+      border: 1px solid var(--warning-hover);
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 700;
+      animation: wave 0.5s ease-in-out;
+
+      @keyframes wave {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-5deg);
+        }
+        75% {
+          transform: rotate(5deg);
+        }
+      }
+    }
+
+    .empty {
+      width: 32px;
+      height: 32px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .minesAround {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.875rem;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+
+      // Number colors with modern palette
+      &._1 {
+        color: #3b82f6;
+      } // Blue
+      &._2 {
+        color: #10b981;
+      } // Green
+      &._3 {
+        color: #ef4444;
+      } // Red
+      &._4 {
+        color: #8b5cf6;
+      } // Purple
+      &._5 {
+        color: #f59e0b;
+      } // Orange
+      &._6 {
+        color: #06b6d4;
+      } // Cyan
+      &._7 {
+        color: #f97316;
+      } // Orange-red
+      &._8 {
+        color: #84cc16;
+      } // Lime
     }
   }
 }

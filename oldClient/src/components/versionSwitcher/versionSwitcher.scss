@@ -1,0 +1,26 @@
+.version-btn {
+  height: 50px;
+  width: 120px;
+  top: 130px;
+  right: 20px;
+  position: absolute;
+  background-color: #ababab;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition-duration: 0.1s;
+  transition-property: transform, box-shadow;
+  &:hover {
+    background-color: #767676;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+}

@@ -1,11 +1,12 @@
-
 import './recordsPanel.scss';
+
 interface myState {
   nickName: string;
   difficult: string;
   time: string;
   createdAt: string;
 }
+
 export default function Record({ createdAt, difficult, nickName, time }: myState) {
   const date = new Date(createdAt);
 
@@ -15,12 +16,22 @@ export default function Record({ createdAt, difficult, nickName, time }: myState
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
+
+  const formatDate = `${year}.${month.toString().padStart(2, '0')}.${day
+    .toString()
+    .padStart(2, '0')}`;
+  const formatTime = `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
   return (
     <div className='record'>
-      <div className='nick'>{nickName}</div>
-      <div className='difficult'>{difficult}</div>
-      <div className='time'>{time}</div>
-      <div className='created'>{`${year}.${month}.${day} ${hours}:${minutes}:${seconds}`}</div>
+      <div className='cell nick'>{nickName}</div>
+      <div className={`cell difficult ${difficult}`}>{difficult}</div>
+      <div className='cell time'>{time}s</div>
+      <div className='cell created'>
+        {formatDate} {formatTime}
+      </div>
     </div>
   );
 }
